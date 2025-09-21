@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se233.chapter5part1.model.GameCharacter;
+import se233.chapter5part1.view.GameStage;
 
 import java.lang.reflect.Field;
 
@@ -80,4 +81,141 @@ public class GameCharacterTest {
         gameCharacter.respawn();
         assertEquals(0, gameCharacter.getScore(), "Initial score");
     }
+
+    @Test
+    public void ReachGameWalllef()  {
+        gameCharacter.respawn();
+        gameCharacter.moveLeft();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.moveX();
+        gameCharacter.checkReachGameWall();
+        assertEquals(0, gameCharacter.getX(), "gogogogo");
+    }
+
+    @Test
+    public void ReachGameWallright()  {
+        gameCharacter.respawn();
+        gameCharacter.moveRight();
+        for (int i = 0 ; i < 150 ; i++)
+        {
+            gameCharacter.moveX();
+        }
+
+        gameCharacter.checkReachGameWall();
+        assertEquals(GameStage.WIDTH - gameCharacter.getDisplayWidth(),
+                gameCharacter.getX(),
+                "gogogogo");
+
+    }
+
+    @Test
+    public void jump()  {
+        gameCharacter.respawn();
+
+        gameCharacter.checkReachFloor();
+        gameCharacter.jump();
+        gameCharacter.moveY();
+        int initialY = gameCharacter.getY();
+        gameCharacter.jump();
+
+        assertFalse(gameCharacter.isCanJump(), "isCanJump?");
+        assertTrue(initialY == gameCharacter.getY(),"gogogogo");
+    }
+
+    @Test
+    public void collidedA(){
+        GameCharacter A = gameCharacter;
+        GameCharacter B = new GameCharacter(
+                2,
+                30, 10,
+                KeyCode.A, KeyCode.D, KeyCode.W,
+                "/se233/chapter5part1/assets/MarioSheet.png",
+                4, 4, 1,
+                16, 32,
+                32, 64,
+                7, 16,
+                15
+        );
+        A.setY(B.getY() + 5);
+        A.moveY();
+        boolean collisionOccurred = A.collided(B);
+
+
+        assertTrue(collisionOccurred, "isCanJump?");
+        assertTrue(1 == A.getScore(),"gogogogo");
+    }
+
+    @Test
+    public void collidedB(){
+        GameCharacter A = gameCharacter;
+        GameCharacter B = new GameCharacter(
+                2,
+                30, 20,
+                KeyCode.A, KeyCode.D, KeyCode.W,
+                "/se233/chapter5part1/assets/MarioSheet.png",
+                4, 4, 1,
+                16, 32,
+                32, 64,
+                7, 16,
+                15
+        );
+        B.setY(A.getY() -10);
+        B.moveY();
+        boolean collisionOccurred = B.collided(A);
+
+
+        assertTrue(collisionOccurred, "isCanJump?");
+        assertTrue(1 == B.getScore(),"gogogogo");
+    }
+
+    @Test
+    public void collidedAX(){
+        GameCharacter A = gameCharacter;
+        GameCharacter B = new GameCharacter(
+                2,
+                20, 30,
+                KeyCode.A, KeyCode.D, KeyCode.W,
+                "/se233/chapter5part1/assets/MarioSheet.png",
+                4, 4, 1,
+                16, 32,
+                32, 64,
+                7, 16,
+                15
+        );
+        A.setMoveLeft(true);
+        A.moveX();
+        A.collided(B);
+        boolean collisionOccurred = A.isMoveLeft();
+
+        assertFalse(collisionOccurred,"gogogogo");
+    }
+
+    @Test
+    public void collidedBX(){
+        GameCharacter A = gameCharacter;
+        GameCharacter B = new GameCharacter(
+                2,
+                20, 30,
+                KeyCode.A, KeyCode.D, KeyCode.W,
+                "/se233/chapter5part1/assets/MarioSheet.png",
+                4, 4, 1,
+                16, 32,
+                32, 64,
+                7, 16,
+                15
+        );
+        B.setMoveRight(true);
+        B.moveX();
+        B.collided(A);
+        boolean collisionOccurred = B.isMoveRight();
+
+        assertFalse(collisionOccurred,"gogogogo");
+    }
+
 }

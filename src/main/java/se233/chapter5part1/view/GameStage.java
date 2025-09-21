@@ -26,13 +26,10 @@ public class GameStage extends Pane {
         backgroundImg.setFitHeight(HEIGHT);
         backgroundImg.setFitWidth(WIDTH);
 
-        // สมมติค่าบางตัวเพื่อทำให้โค้ดสมบูรณ์
         int xMaxVelocity = 7;
         int yMaxVelocity = 17;
 
-
         gameCharacterList.add(new GameCharacter(0, 30, 30, KeyCode.A, KeyCode.D, KeyCode.W, "/se233/chapter5part1/assets/Character1.png", 4, 3, 2, 111, 97, 128, 128, xMaxVelocity, yMaxVelocity, 30));
-
         gameCharacterList.add(new GameCharacter(1, GameStage.WIDTH - 60, 30, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, "/se233/chapter5part1/assets/Character2.png", 4, 4, 1, 129, 66, 160, 160, xMaxVelocity, yMaxVelocity, 80));
 
         scoreList.add(new Score(30, GROUND + 30));

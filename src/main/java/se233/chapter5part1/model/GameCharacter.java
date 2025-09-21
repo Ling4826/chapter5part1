@@ -14,11 +14,55 @@ import java.util.concurrent.TimeUnit;
 public class GameCharacter extends Pane {
     private static final Logger logger = LogManager.getLogger(GameCharacter.class);
     private final int yOffset;
-    private int x, y, startX, startY, score = 0;
+    private int x;
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    private int y;
+    private int startX;
+    private int startY;
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    private int score = 0;
     private AnimatedSprite imageView;
     private KeyCode leftKey, rightKey, upKey;
-    private boolean isMoveLeft = false, isMoveRight = false;
-    private boolean isFalling = true, canJump = false, isJumping = false;
+
+    public boolean isMoveLeft() {
+        return isMoveLeft;
+    }
+
+    public void setMoveLeft(boolean moveLeft) {
+        isMoveLeft = moveLeft;
+    }
+
+    private boolean isMoveLeft = false;
+
+    public boolean isMoveRight() {
+        return isMoveRight;
+    }
+
+    public void setMoveRight(boolean moveRight) {
+        isMoveRight = moveRight;
+    }
+
+    private boolean isMoveRight = false;
+    private boolean isFalling = true;
+
+    public boolean isCanJump() {
+        return canJump;
+    }
+
+    public void setCanJump(boolean canJump) {
+        this.canJump = canJump;
+    }
+
+    private boolean canJump = false;
+    private boolean isJumping = false;
     private int xVelocity = 0, yVelocity = 0;
     private final int xAcceleration = 1, yAcceleration = 1;
     private final int xMaxVelocity, yMaxVelocity;
@@ -115,17 +159,18 @@ public class GameCharacter extends Pane {
             logger.info("Character is moving RIGHT. Current X: {}", x);
         }
     }
+
     public void moveY() { if (isFalling) { yVelocity = Math.min(yVelocity + yAcceleration, yMaxVelocity); y += yVelocity; } else if (isJumping) { yVelocity = Math.max(yVelocity - yAcceleration, 0); y -= yVelocity; } }
     public void jump() { if (canJump) { yVelocity = yMaxVelocity; canJump = false; isJumping = true; isFalling = false; } }
     public void stop() { isMoveLeft = false; isMoveRight = false; xVelocity = 0; }
-    // ใน GameCharacter.java
+
     public void moveLeft() {
-        setScaleX(1); // พลิก Pane ทั้งหมด
+        setScaleX(1);
         isMoveLeft = true;
         isMoveRight = false;
     }
     public void moveRight() {
-        setScaleX(-1); // พลิก Pane ทั้งหมด
+        setScaleX(-1);
         isMoveLeft = false;
         isMoveRight = true;
     }
