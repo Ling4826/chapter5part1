@@ -35,7 +35,6 @@ public class Keysclass {
         character.setMoveLeft(keys.isPressed(character.getLeftKey()));
         boolean a = character.isMoveLeft();
 
-
         assertTrue(a, "Character should move left when LEFT key is pressed");
     }
     @Test
