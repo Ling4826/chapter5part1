@@ -133,7 +133,7 @@ public class GameCharacterTest {
         GameCharacter A = gameCharacter;
         GameCharacter B = new GameCharacter(
                 2,
-                30, 10,
+                30, 30,
                 KeyCode.A, KeyCode.D, KeyCode.W,
                 "/se233/chapter5part1/assets/MarioSheet.png",
                 4, 4, 1,
@@ -142,11 +142,9 @@ public class GameCharacterTest {
                 7, 16,
                 15
         );
-        A.setY(B.getY() + 5);
+        A.setY(B.getY() - 10);
         A.moveY();
         boolean collisionOccurred = A.collided(B);
-
-
         assertTrue(collisionOccurred, "isCanJump?");
         assertTrue(1 == A.getScore(),"gogogogo");
     }
